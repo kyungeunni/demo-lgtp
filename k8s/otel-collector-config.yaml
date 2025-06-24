@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-collector-config
+  namespace: logging-demo
+  labels:
+    app: otel-collector
+
+data:
+  otel-collector-config.yaml: |
+    receivers:
+      filelog/pods:
+        include: [/var/log/pods/*/*/*.log]
+      filelog/syslog:
+        include: [/var/log/syslog]
+
+    processors:
+      batch:
+
+    exporters:
+      otlphttp:
+        endpoint: http://loki:3100/loki/api/v1/push
+    service:
+      pipelines:
+        logs:
+          receivers: [filelog/pods, filelog/syslog]
+          processors: [batch]
+          exporters: [otlphttp] 

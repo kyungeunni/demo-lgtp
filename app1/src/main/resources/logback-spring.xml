@@ -1,0 +1,14 @@
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <customFields>{"app":"${spring.application.name}"}</customFields>
+      <fieldNames>
+        <trace>traceId</trace>
+        <span>spanId</span>
+      </fieldNames>
+    </encoder>
+  </appender>
+  <root level="INFO">
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration> 

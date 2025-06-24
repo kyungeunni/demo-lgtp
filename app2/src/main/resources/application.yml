@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: app2
+server:
+  port: 8081
+otel:
+  exporter:
+    otlp:
+      endpoint: http://otel-collector:4317
+  resource:
+    attributes: service.name=${spring.application.name} 
